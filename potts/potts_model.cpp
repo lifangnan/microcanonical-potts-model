@@ -176,21 +176,18 @@ void potts_demon::demon_update(int MCstep){
                 config[site] = Q2;
             }
         }
-        opt<<j*10<<","<<energy_density_u()<<","<<rho_1()<<endl;
+	vector<float> rho = rho_1();
+        opt<<j*10<<","<<energy_density_u()<<","<<rho[1]<<","<<rho[2]<<","<<rho[3]<<","<<rho[4]<<","<<rho[5]<<","<<rho[6]<<","<<-111<<","<<Ed<<endl;
         //opt2<<j<<" ";
     }
 }
 
-float potts_demon::rho_1(){
-    int max = 0;
-    vector<int>::iterator head = config.begin();
-    vector<int>::iterator tail = config.end();
-    for(int i=1;i<Q+1;++i){
-        int cou = 0;
-        cou = count(head,tail,i);
-        if(cou>max) max=cou;
+vector<float> potts_demon::rho_1(){
+    vector<float> rho(Q+1,0);
+    for( vector<int>::iterator it=config.begin();it!=config.end();it++){
+	rho[(*it)]++;
     }
-    return (float)max/N;
+    return rho;
 }
 
 
@@ -201,12 +198,12 @@ int main(){
     
     opt2.open("log.txt");
    
-    for(int i=1100;i<1151;++i){
-        float u = -2+i*0.001;
+    for(int i=275;i<288;++i){
+        float u = -2+i*0.004;
 
         potts_demon model1(N,K,Q);
         model1.initial_with_u(u);
-        model1.demon_update(12000);
+        model1.demon_update(16000);
 
         opt.close();
     }
