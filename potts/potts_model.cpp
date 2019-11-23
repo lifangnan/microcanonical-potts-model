@@ -107,7 +107,7 @@ public:
     float energy_density_u();
     void initial_with_u(float std_u);
     void demon_update(int MCstep);
-    float rho_1();
+    vector<float> rho_1();
 };
 
 potts_demon::potts_demon(int NN,int KK,int QQ)
