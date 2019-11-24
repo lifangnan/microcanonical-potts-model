@@ -164,6 +164,10 @@ void potts_demon::demon_update(int MCstep){
         for(int i=0;i<N*10;++i){
             int site = posi(gen1);
             int Q2 = color(gen1);
+	    while(Q2==config[site]){
+	        int Q2 = color(gen1);
+	    }
+
             float localE0 = 0;
             float localE1 = 0;
             for(set<int>::iterator it = link[site].begin();it!=link[site].end();it++){
@@ -171,7 +175,7 @@ void potts_demon::demon_update(int MCstep){
                 if(Q2==config[*it])localE1--;
             }
             float Ed2 = Ed+localE0-localE1;
-            if(Ed2>0){
+	    if(Ed2>=0){
                 Ed = Ed2;
                 config[site] = Q2;
             }
