@@ -160,8 +160,8 @@ void potts_demon::demon_update(int MCstep){
     std::default_random_engine gen1((int)time(0));
     std::uniform_int_distribution<int> posi(0,N-1);
     std::uniform_int_distribution<int> color(1,Q);
-    for(int j=0;j<MCstep/10;++j){
-        for(int i=0;i<N*10;++i){
+    for(int j=0;j<MCstep;++j){
+        for(int i=0;i<N;++i){
             int site = posi(gen1);
             int Q2;
 	    while(true){
@@ -206,12 +206,12 @@ int main(){
     
     opt2.open("log.txt");
    
-    for(int i=0;i<100;++i){
-        float u = -2+i*0.2;
+    for(int i=525;i<580;++i){
+        float u = -2+i*0.002;
 
         potts_demon model1(N,K,Q);
         model1.initial_with_u(u);
-        model1.demon_update(10000);
+        model1.demon_update(1000);
 
         opt.close();
     }
