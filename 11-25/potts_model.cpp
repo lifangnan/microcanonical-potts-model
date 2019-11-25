@@ -151,7 +151,7 @@ void potts_demon::initial_with_u(float std_u){
     }
     cout<<"Initialized with u = "<<energy_density_u()<<endl;
     char filename[20];
-    sprintf(filename,"u=%.5f.csv",energy_density_u());
+    sprintf(filename,"output/u=%.5f.csv",energy_density_u());
     opt.open(filename,ios::out|ios::trunc);
 }
 
@@ -211,7 +211,7 @@ int main(){
 
         potts_demon model1(N,K,Q);
         model1.initial_with_u(u);
-        model1.demon_update(1000);
+        model1.demon_update(10000);
 
         opt.close();
     }
